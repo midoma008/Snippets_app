@@ -1,6 +1,8 @@
 <?php
 session_start();
-include 'config.php';
+require_once "config/db.php";
+require_once "includes/header.php";
+require_once "includes/navbar.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'];
@@ -15,15 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="style.css" rel="stylesheet">
-</head>
+
 <body>
     <div class="container my-5">
         <div class="card mx-auto" style="max-width: 400px;">

@@ -1,6 +1,23 @@
 <?php
 session_start();
-include 'config.php';
+require_once "config/db.php";
+require_once "includes/header.php";
+require_once "includes/navbar.php";
+
+// Handle form submission for adding a new snippet
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $title = $_POST['title'];
+    $language = $_POST['language'];
+    $code = $_POST['code'];
+
+    // Prepare and execute the insert query
+    $stmt = $conn->prepare("INSERT INTO snippets (title, language, code, user_id) VALUES (?, ?, ?, ?)");
+    $stmt->execute([$title, $language, $code, $_SESSION['user_id']]);
+
+    // Redirect to the same page to prevent resubmission
+    header("Location: snippet.php?id=" . $conn->lastInsertId());
+    exit();
+}
 
 // Check if the snippet ID is provided
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
@@ -13,59 +30,22 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
     // Check if the snippet exists
     if (!$snippet) {
-        die("Snippet not found.");
+        header("Location: error.php?error=Snippet not found");
+        exit();
     }
+
 } else {
     die("Invalid snippet ID.");
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= htmlspecialchars($snippet['title']) ?> - SnippetShare</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="style.css" rel="stylesheet">
-</head>
-<body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-custom">
-        <div class="container">
-            <a class="navbar-brand" href="index.php">SnippetShare</a>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav ms-auto">
-                    <?php if (isset($_SESSION['user_id'])): ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="snippets.php">Manage Snippets</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="profile.php">Profile</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="logout.php">Logout</a>
-                        </li>
-                    <?php else: ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="login.php">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="register.php">Register</a>
-                        </li>
-                    <?php endif; ?>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Snippet Details -->
-    <div class="container my-5">
-        <h1 class="text-center mb-4"><?= htmlspecialchars($snippet['title']) ?></h1>
-        <p><strong>Language:</strong> <?= htmlspecialchars($snippet['language']) ?></p>
-        <pre class="snippet-code"><?= htmlspecialchars($snippet['code']) ?></pre>
-        <p class="text-muted">By: <?= htmlspecialchars($snippet['name']) ?></p>
-        <a href="index.php" class="btn btn-primary">Back to Snippets</a>
-    </div>
+<!-- Snippet Details -->
+<div class="container my-5">
+    <h1 class="text-center mb-4"><?= htmlspecialchars($snippet['title']) ?></h1>
+    <p><strong>Language:</strong> <?= htmlspecialchars($snippet['language']) ?></p>
+    <pre class="snippet-code"><?= htmlspecialchars($snippet['code']) ?></pre>
+    <p class="text-muted">By: <?= htmlspecialchars($snippet['name']) ?></p>
+    <a href="index.php" class="btn btn-primary">Back to Snippets</a>
+</div>
 </body>
 </html>

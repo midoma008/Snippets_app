@@ -1,7 +1,9 @@
 /* Custom Styles */
 body {
     background-color: #f8f9fa;
+    color: #212529; /* Ensure text color is readable */
 }
+
 
 .card {
     border: none;
@@ -20,7 +22,9 @@ pre {
 .navbar-custom {
     background-color: #007bff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: #fff; /* Ensure text color is readable */
 }
+
 
 .navbar-custom .navbar-brand,
 .navbar-custom .nav-link {
@@ -35,7 +39,9 @@ pre {
     background-color: #007bff;
     color: #fff;
     border: none;
+    transition: background-color 0.3s; /* Add transition for hover effect */
 }
+
 
 .btn-custom:hover {
     background-color: #0056b3;
@@ -44,7 +50,11 @@ pre {
     max-height: 4.5em; /* 3 lines of text */
     overflow: hidden;
     position: relative;
+    display: -webkit-box; /* For older browsers */
+    -webkit-box-orient: vertical; /* For older browsers */
+    -webkit-line-clamp: 3; /* Limit to 3 lines */
 }
+
 .snippet-preview::after {
     content: '...';
     position: absolute;
@@ -57,7 +67,9 @@ pre {
     color: #007bff;
     text-decoration: none;
     font-weight: bold;
+    transition: text-decoration 0.3s; /* Add transition for hover effect */
 }
+
 
 .read-more:hover {
     text-decoration: underline;
