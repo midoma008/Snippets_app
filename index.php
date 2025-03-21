@@ -24,15 +24,14 @@ $snippets = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
             <div class="input-group">
                 <select name="language" class="form-control">
-                    <option value="">All Languages</option>
-                    <option value="PHP">PHP</option>
-                    <option value="JavaScript">JavaScript</option>
-                    <option value="Python">Python</option>
-                    <option value="Java">Java</option>
-                    <option value="C++">C++</option>
-                    <option value="Ruby">Ruby</option>
-                    <option value="Go">Go</option>
-                    <option value="C#">C#</option>
+                <option value="PHP" data-icon="fa-brands fa-php">PHP</option>
+        <option value="JavaScript" data-icon="fa-brands fa-js">JavaScript</option>
+        <option value="Python" data-icon="fa-brands fa-python">Python</option>
+        <option value="Java" data-icon="fa-brands fa-java">Java</option>
+          <option value="C++" data-icon="fa-brands fa-c">C++</option>
+          <option value="Ruby" data-icon="fa-brands fa-ruby">Ruby</option>
+        <option value="Go" data-icon="fa-brands fa-golang">Go</option>
+        <option value="C#" data-icon="fa-solid fa-hashtag">C#</option>
                 </select>
                 <button type="submit" class="btn btn-custom">Filter</button>
             </div>
